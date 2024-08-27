@@ -180,7 +180,86 @@ transition: all .8s ease;
            #img-footer{
                padding-left:15px;
            }
-           
+           /*
+
+               Image slider Css 
+           */
+
+
+.slider-container {
+            position: relative;
+            max-width: 100%;
+            overflow: hidden;
+        }
+        .card-container {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+            gap: 20px;
+        }
+        .property-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow: hidden;
+            width: 300px;
+            flex-shrink: 0;
+        }
+        .property-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .property-card .card-content {
+            padding: 15px;
+        }
+        .property-card .card-content h3 {
+            margin: 0 0 10px;
+        }
+        .property-card .card-content p {
+            margin: 0 0 10px;
+        }
+        .arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        .arrow-left {
+            left: 10px;
+        }
+        .arrow-right {
+            right: 10px;
+        }
+        .dots-container {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .dot {
+            height: 10px;
+            width: 10px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .dot.active {
+            background-color: #717171;
+        }
+        #nnnn{
+
+            border-radius:8px;
+        }
+/*
+
+    End of Code
+
+*/
+
     </style>
 
 </head>
@@ -201,11 +280,13 @@ transition: all .8s ease;
         </ul>
         <div id="nav-div-btn1">
             <a href="Login.aspx">
-        <button role="link" id="nav-login-btn" onclick="location.href='www.google.com'">Login</button>
-                </a>
+                <button role="link" id="nav-login-btn" onclick="location.href='www.google.com'">Login</button>
+            </a>
         </div>
         <div id="nav-div-btn2">
-        <button id="nav-signup-btn">Signup</button>
+            <a href="Signup.aspx">
+                <button id="nav-signup-btn">Signup</button>
+            </a>
         </div>
     </nav>
     <br /><br /><br />
@@ -219,6 +300,95 @@ transition: all .8s ease;
                 <uc1:ImageSlider ID="imageslider" runat="server" />
     <br />
     <br />
+    <!-- Displying Property Slider-->
+
+    <h2>Quick View</h2>
+    <div class="slider-container">
+        <button class="arrow arrow-left" onclick="moveLeft()">&#10094;</button>
+        <div class="card-container" id="cardContainer">
+            <asp:Repeater ID="PropertyRepeater" runat="server">
+                <ItemTemplate>
+                    <div class="property-card">
+                        <img src='<%# Eval("ImagePath") %>' alt="Property Image" />
+                        <div class="card-content">
+                            <h3><%# Eval("Title") %></h3>
+                            <p>Price: <%# Eval("Price") %></p>
+                            <p>Size: <%# Eval("Size") %> sq ft</p>
+                            <p>Location: <%# Eval("Location") %></p>
+                            <p>Developer: <%# Eval("DeveloperName") %></p>
+                        </div>
+                    </div>
+                </ItemTemplate>
+            </asp:Repeater>
+        </div>
+        <button class="arrow arrow-right" onclick="moveRight()">&#10095;</button>
+    </div>
+    <div class="dots-container" id="dotsContainer"></div>
+
+
+    
+   <br />
+    <br />
+    <br />
+    <center>
+    <a href="propertydisplay.aspx">
+    <img id="nnnn" src="Images/medd.png" height="200px" width="400px" />
+        </a>
+        </center>
+    <br />
+    <br />
+    <script>
+        const cardContainer = document.getElementById('cardContainer');
+        const totalCards = cardContainer.children.length;
+        let currentSlide = 0;
+        const cardsPerView = Math.floor(cardContainer.clientWidth / 320);
+        
+        function updateDots() {
+            const dotsContainer = document.getElementById('dotsContainer');
+            dotsContainer.innerHTML = '';
+            const totalDots = Math.ceil(totalCards / cardsPerView);
+            for (let i = 0; i < totalDots; i++) {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                if (i === currentSlide) dot.classList.add('active');
+                dot.setAttribute('onclick', `goToSlide(${i})`);
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        function moveLeft() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlider();
+            }
+        }
+
+        function moveRight() {
+            if (currentSlide < Math.ceil(totalCards / cardsPerView) - 1) {
+                currentSlide++;
+                updateSlider();
+            }
+        }
+
+        function goToSlide(slideIndex) {
+            currentSlide = slideIndex;
+            updateSlider();
+        }
+
+        function updateSlider() {
+            const slideWidth = cardContainer.children[0].offsetWidth + 20; // card width + gap
+            cardContainer.style.transform = `translateX(${-currentSlide * slideWidth}px)`;
+            updateDots();
+        }
+
+        // Initialize dots on page load
+        window.onload = updateDots;
+    </script>
+
+
+
+
+
 
 
 

@@ -8,7 +8,7 @@
 
     <style>
         body{
-              background-image: url('https://img.freepik.com/free-vector/realistic-style-technology-particle-background_23-2148426704.jpg'); /* Only one image is applied */
+              background-image: url('https://images.pexels.com/photos/1187974/pexels-photo-1187974.jpeg?cs=srgb&dl=pexels-paul-cameron-477972-1187974.jpg&fm=jpg'); /* Only one image is applied */
               background-size: 100%;
               height:100%;
         }
@@ -35,7 +35,7 @@
             width:120px;
             border:none;
             font-family: Bahnschrift;
-            font-size:11px;
+            font-size:14px;
         }
         .div-class{
             
@@ -46,11 +46,15 @@
         }
         #lblMessage1{
             color:red;
+            font-family:'Cascadia Code';
+            font-size:14px;
         }
     </style>
 
 </head>
 <body>
+    <br />
+    <br />
     <form id="form1" runat="server">
         <center>
         <h1>Get Your Password on Email</h1>
@@ -59,16 +63,18 @@
         <br /><br />
         <label id="label1">Enter Your Mail Id </label>
         <br /><br />
-        <asp:TextBox ID="emailid" runat="server" Placeholder="Enter your text here"></asp:TextBox>
+        <asp:TextBox ID="emailid" runat="server" Placeholder="Enter Your Email-ID"></asp:TextBox>
         <br />
         <br />
        
         <asp:Button ID="submit" runat="server" Text="Get Password" Onclick="btn_click"/>
                 <br />
+                <br />
+                <br />
                 <asp:Label ID="lblMessage1" runat="server" ForeColor="Red"></asp:Label>
-            </center>
+            
         </div>
-          
+          </center>
     </form>
 </body>
 </html>

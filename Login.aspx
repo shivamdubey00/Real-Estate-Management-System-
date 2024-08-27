@@ -35,6 +35,7 @@
     </style>
 </head>
 <body>
+
     <center>
         <h2>Login Here</h2>
 
@@ -69,7 +70,7 @@
         <br />
         <br />
         <br />
-        <a href="#">Forget Password</a>  | <a href="#">Create Account</a>
+        <a href="ForgetPassword.aspx">Forget Password</a>  | <a href="Signup.aspx">Create Account</a>
     </form>
          </center>
 </body>

@@ -11,6 +11,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Helpers;
+using System.Threading.Tasks;
 
 public partial class Soucre_public_Login : System.Web.UI.Page
 {
@@ -132,6 +133,10 @@ public partial class Soucre_public_Login : System.Web.UI.Page
 
             smtpClient.Send(mail);
             lblMessage1.Text = "Email sent successfully!";
+
+            Response.Redirect("Homepage.aspx");
+
+
         }
         catch (SmtpException smtpEx)
         {
